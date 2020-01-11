@@ -239,7 +239,7 @@ function Promise(fn) {
       handleCb()
     }
 
-    setTimeout(fn, 0)
+    fn()
 
   }
 
@@ -274,7 +274,7 @@ function Promise(fn) {
       handleCb()
     }
 
-    setTimeout(fn, 0)
+    fn()
 
   }
 

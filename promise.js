@@ -16,7 +16,7 @@
   6.handle函数将第二层的回调和resolve存入callbacks
   7.执行第一层Promise的fn回调函数并将resolve函数作为参数传入
   8.在自定义fn回调函数中调用resolve函数
-  9.resolve函数将第一层Promise的状态从pending设置为fulfiled并接收传入的值newValue
+  9.resolve函数将第一层Promise的状态从pending设置为fulfilled并接收传入的值newValue
   10.在handleCb函数中执行第二层Promise的回调函数和resolve
   11.若then有自定义回调函数onFulfilled则执行回调后再执行第二层Promise的resolve函数；若无，则直接执行resolve并将第一层Promise的newValue传入
 
@@ -58,17 +58,17 @@ function Promise(fn) {
     function handle(callback) {
         if (state === 'pending') {
 
-            console.log('hadle pending')
+            console.log('handle pending')
 
             callbacks.push(callback)
             return
         }
 
-        console.log('handle fulfilled')
+        console.log('handle state:', state)
         console.log(callback)
 
         const cb = state === 'fulfilled' ? callback.onFulfilled : callback.onRejected
-        const next = state === 'fulfiled' ? callback.resolve : callback.reject
+        const next = state === 'fulfilled' ? callback.resolve : callback.reject
 
         if (!cb) {
             next(value)
@@ -87,7 +87,7 @@ function Promise(fn) {
         const fn = () => {
             if (state !== 'pending') return
 
-            console.log('change \'pending\' to \'fulfiled\'')
+            console.log('change \'pending\' to \'fulfilled\'')
             console.log('newValue:', newValue)
 
             // 处理上一层then返回Promise的情况
@@ -108,7 +108,7 @@ function Promise(fn) {
 
         }
 
-        setTimeout(fn, 0)
+        fn()
     }
 
     function reject(error) {
@@ -128,7 +128,7 @@ function Promise(fn) {
 
         }
 
-        setTimeout(fn, 0)
+        fn()
     }
 
     function handleCb() {
