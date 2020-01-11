@@ -1,5 +1,5 @@
 # Promise学习笔记
----
+
 ## 1. Promise解决问题
 
 Promise主要是解决回调地狱问题。
@@ -457,4 +457,8 @@ function Promise(fn) {
 
 ## 源码
 
+[https://github.com/zyktrcn/promise](https://github.com/zyktrcn/promise)
+
 ## 参考
+
+[这一次，彻底弄懂 Promise 原理 - winty](https://mp.weixin.qq.com/s/_l4JWTGyl9f3wv4HZKsIVg)
