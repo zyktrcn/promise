@@ -239,7 +239,15 @@ function Promise(fn) {
       handleCb()
     }
 
-    fn()
+    // setTimeout将resolve方法放入宏任务行列
+
+    // 当前队列执行完第一层Promise回调函数后
+    // 将resolve方法延后
+    // 先执行then方法创建新的Promise实例
+    // 将下一层then方法的回调和处理方法往当前层上提
+    // 然后执行resolve将当前层状态值改为fulfilled
+    // 再将resolve方法传入的newValue作为参数执行下一层then方法的回调函数
+    setTimeout(fn, 0)
 
   }
 
@@ -274,7 +282,8 @@ function Promise(fn) {
       handleCb()
     }
 
-    fn()
+    // 类似resolve
+    setTimeout(fn, 0)
 
   }
 
@@ -461,4 +470,5 @@ function Promise(fn) {
 
 ## 参考
 
-[这一次，彻底弄懂 Promise 原理 - winty](https://mp.weixin.qq.com/s/_l4JWTGyl9f3wv4HZKsIVg)
+[这一次，彻底弄懂 Promise 原理 - winty](https://mp.weixin.qq.com/s/_l4JWTGyl9f3wv4HZKsIVg)  
+[十四、深入核心，详解事件循环机制](https://mp.weixin.qq.com/s/m3a6vjp8-c9a2EYj0cDMmg)

@@ -108,7 +108,7 @@ function Promise(fn) {
 
         }
 
-        fn()
+        setTimeout(fn, 0)
     }
 
     function reject(error) {
@@ -128,7 +128,7 @@ function Promise(fn) {
 
         }
 
-        fn()
+        setTimeout(fn, 0)
     }
 
     function handleCb() {

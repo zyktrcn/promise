@@ -18,11 +18,8 @@ const { Promise } = require('./promise.js')
 
 new Promise((resolve) => {
     console.log('riginal')
-    setTimeout(() => {
-        console.log('resolve')
-        resolve('promise')
-    }, 1000)
-}).then(result => {
+    resolve('promise')
+}, 0).then(result => {
     console.log('result:', result)
 }).then(() => {
     console.log('second')
