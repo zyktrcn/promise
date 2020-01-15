@@ -16,6 +16,25 @@ new Promise((resolve, reject) => {
 
 const { Promise } = require('./promise.js')
 
+/* 
+new Promise((resolve, reject) => {
+    reject()
+}).then(
+    () => {},
+    () => {
+        console.log('rejected')
+    }
+).then(
+    () => {
+        console.log('resolved')
+    },
+    () => {
+        console.log('rejected')
+    }
+)
+ */
+
+/* 
 new Promise((resolve) => {
     console.log('riginal')
     resolve('promise')
@@ -24,6 +43,7 @@ new Promise((resolve) => {
 }).then(() => {
     console.log('second')
 })
+ */
 
 /*
 new Promise((resolve) => {

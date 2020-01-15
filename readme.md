@@ -185,7 +185,34 @@ function Promise(fn) {
 
     // 判断当前状态是fulfilled还是rejected
     const cb = state === 'fulfilled' ? callback.onFulfilled : callback.onRejected
-    const next = state === 'fulfilled' ? callback.resolve : reject
+
+
+    // Promise后的then无论执行onFulfilled还是onRejected回调函数，都会将状态改为fulfilled并将回调函数返回值传递给下一层then。
+    // 参考代码
+    // 更正前输出rejected rejected
+    // 更正后输出rejected resolved与chrome、node、MDN一致
+    /* 
+      new Promise((resolve, reject) => {
+          reject()
+      }).then(
+          () => {},
+          () => {
+              console.log('rejected')
+          }
+      ).then(
+          () => {
+              console.log('resolved')
+          },
+          () => {
+              console.log('rejected')
+          }
+      )
+    */    
+    // 更正前
+    // const next = state === 'fulfilled' ? callback.resolve : reject
+    
+    // 更正后
+    const next = callback.resolve
 
     // 如果下一层then（Promise）没有设置相应回调函数，则直接调用resolve / reject。
     // 即将当前层Promise的value传入下下层的then（Promise）

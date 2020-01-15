@@ -31,9 +31,14 @@ function Promise(fn) {
     const callbacks = []
 
     this.then = function(onFulfilled, onRejected) {
+
+        // 保存当前then指向
+        const self = this
+
         return new Promise((resolve, reject) => {
 
             console.log('then')
+
 
             handle({
                 onFulfilled,
@@ -41,6 +46,7 @@ function Promise(fn) {
                 resolve,
                 reject
             })
+
 
         })
     }
@@ -68,7 +74,7 @@ function Promise(fn) {
         console.log(callback)
 
         const cb = state === 'fulfilled' ? callback.onFulfilled : callback.onRejected
-        const next = state === 'fulfilled' ? callback.resolve : callback.reject
+        const next = callback.resolve
 
         if (!cb) {
             next(value)
@@ -141,7 +147,11 @@ function Promise(fn) {
         }
     }
 
-    fn(resolve, reject)
+    try {
+        fn(resolve, reject)
+    } catch (e) {
+        reject(e)
+    }
 
 }
 
